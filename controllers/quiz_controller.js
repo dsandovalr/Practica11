@@ -1,6 +1,7 @@
 // GET /question
 exports.question = function(req, res, next) {
-   res.render('quizzes/question', {question: 'Capital de Italia'});
+   var answer = req.query.answer || "";
+   res.render('quizzes/question', {question: 'Capital de Italia', answer:answer});
 };
 
 // GET /check
