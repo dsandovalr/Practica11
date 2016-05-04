@@ -24,7 +24,7 @@ exports.index = function(req, res, next) {
 	
 	if (req.body.busqueda !== undefined) {
 		models.Quiz.findAll({
-			where: {question: {$like: "%" + req.body.busqueda.replace(/ /g, "%") + "%"}},
+			where: {question: {$like: "%" + req.busqueda.replace(/ /g, "%") + "%"}},
 
 		}).then(function(quizzes) {
 			res.render('quizzes/index.ejs', { quizzes: quizzes});
