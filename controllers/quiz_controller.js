@@ -22,10 +22,10 @@ exports.load = function(req, res, next, quizId) {
 // GET /quizzes
 exports.index = function(req, res, next) {
 	
-	if (req.body.busqueda !== undefined) {
+	if (req.query.busqueda !== undefined) {
 		models.Quiz.findAll({
-			where: {question: {$like: "%" + req.busqueda.replace(/ /g, "%") + "%"}},
-
+			where: {question: {$like: "%" + req.query.busqueda.replace(/ /g, "%") + "%"}},
+			order: {"question", "ASC"}
 		}).then(function(quizzes) {
 			res.render('quizzes/index.ejs', { quizzes: quizzes});
 		})
