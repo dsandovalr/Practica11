@@ -2,6 +2,8 @@
 var models = require('../models');
 var Sequelize = require('sequelize');
 
+// Búsqueda de preguntas
+
 // Autoload el quiz asociado a :quizId
 exports.load = function(req, res, next, quizId) {
 	models.Quiz.findById(quizId)
@@ -19,6 +21,17 @@ exports.load = function(req, res, next, quizId) {
 
 // GET /quizzes
 exports.index = function(req, res, next) {
+	
+	if (req.body.busqueda != undefined) {
+		models.Quiz.findAll({
+			where: {question: {$like: "%" + req.body.busqueda.replace(/ /g, "%") + "%"}},
+
+		}).then(function(quizzes) {
+			res.render('quizzes/index.ejs', { quizzes: quizzes});
+		})
+	}
+
+
 	models.Quiz.findAll()
 		.then(function(quizzes) {
 			res.render('quizzes/index.ejs', { quizzes: quizzes});
