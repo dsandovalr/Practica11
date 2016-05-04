@@ -30,8 +30,7 @@ exports.index = function(req, res, next) {
 			res.render('quizzes/index.ejs', { quizzes: quizzes});
 		})
 	}
-
-
+    
 	models.Quiz.findAll()
 		.then(function(quizzes) {
 			res.render('quizzes/index.ejs', { quizzes: quizzes});
