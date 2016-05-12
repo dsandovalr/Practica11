@@ -25,7 +25,7 @@ exports.index = function(req, res, next) {
     models.Quiz.findAll().then(function(quizzes) {
       var objeto = "";
       for (var i in quizzes) {
-        objeto += JSON.stringify(i);
+        objeto += JSON.stringify(quizzes[i]);
       }
       res.send(objeto);
     })
