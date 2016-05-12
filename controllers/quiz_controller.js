@@ -21,7 +21,7 @@ exports.load = function(req, res, next, quizId) {
 
 // GET /quizzes
 exports.index = function(req, res, next) {
-	if(req.query.format === "json") {
+	if(req.params.format === "json") {
     models.Quiz.findAll().then(function(quizzes) {
       var objeto = "";
       for (var i in quizzes) {
@@ -60,8 +60,8 @@ exports.index = function(req, res, next) {
 exports.show = function(req, res, next) {
 
 	var answer = req.query.answer || '';
-  if (req.query.format === "json") {
-    res.send(JSON.stringify(req.quiz));
+  if (req.params.format === "json") {
+    res.send(JSON.stringify(req.quiz)); 
   }
 
 
