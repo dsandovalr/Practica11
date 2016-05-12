@@ -21,7 +21,21 @@ exports.load = function(req, res, next, quizId) {
 
 // GET /quizzes
 exports.index = function(req, res, next) {
-	
+	if(req.query.format === "json") {
+    models.Quiz.findAll().then(function(quizzes) {
+      var objeto = "";
+      for (var i in quizzes) {
+        objeto += JSON.stringify(i);
+      }
+      res.send(objeto);
+    })
+    .catch(function(error) {
+      next(error);
+
+    });
+  }
+
+
 	if (req.query.busqueda !== undefined) {
 		models.Quiz.findAll({
 			where: {question: {$like: "%" + req.query.busqueda.replace(/ /g, "%") + "%"}},
@@ -37,6 +51,7 @@ exports.index = function(req, res, next) {
 		})
 		.catch(function(error) {
 			next(error);
+
 		});
 };
 
@@ -45,6 +60,10 @@ exports.index = function(req, res, next) {
 exports.show = function(req, res, next) {
 
 	var answer = req.query.answer || '';
+  if (req.query.format === "json") {
+    res.send(JSON.stringify(req.quiz));
+  }
+
 
 	res.render('quizzes/show', {quiz: req.quiz,
 								answer: answer});
